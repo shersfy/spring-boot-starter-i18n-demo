@@ -4,6 +4,10 @@ import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 import org.shersfy.i18n.I18nMessages;
+import org.shersfy.i18n.I18nProperties;
+import org.shersfy.i18n.I18nModel;
+import org.shersfy.i18n.beans.Result;
+import org.shersfy.i18n.beans.Result.ResultCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,5 +44,30 @@ public class AppController extends BaseController{
     		return i18n.getI18n(locale.getLanguage(), locale.getCountry());
     	}
     	return i18n.getI18n(locale.getLanguage(), locale.getCountry()).getProperty(key);
+    }
+    
+    
+    @GetMapping("/msg")
+    public Result getMsg() {
+    	Result res = new Result();
+    	
+    	I18nModel msg = new I18nModel("MSG.T0027.E000002");
+    	String args[] = {"0 /1 * * * ?", "2018-10-20 00:00:00", "2050-12-31 23:59:59"};
+    	msg.setArgs(args);
+    	
+    	res.setCode(ResultCode.FAIL);
+    	res.setModel(msg);
+    	
+    	return res;
+    }
+    
+    protected I18nProperties getI18nMsg(String lang) {
+    	Locale locale = Locale.CHINA;
+    	if("en".equalsIgnoreCase(lang)
+    			|| "en_US".equalsIgnoreCase(lang)) {
+    		locale = Locale.US;
+    	}
+
+    	return i18n.getI18n(locale.getLanguage(), locale.getCountry());
     }
 }
