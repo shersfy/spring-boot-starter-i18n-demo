@@ -1,0 +1,27 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: spring-boot-starter-i18n-demo
+  main:
+    banner-mode: 'off'
+# i18n
+i18n:
+  config:
+    enabled: true
+    location: i18n/*.properties
+# management
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+# logging
+logging:
+  file: logs/${spring.application.name}.log
+  file.max-size: 100MB
+  level:
+    root: info
+  pattern:
+    dateformat: yyyy-MM-dd HH:mm:ss.SSS
+    level: '%5p'
