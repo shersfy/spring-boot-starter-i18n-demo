@@ -9,7 +9,6 @@ spring:
 i18n:
   config:
     enabled: true
-    location: i18n/*.properties
 # management
 management:
   endpoints:

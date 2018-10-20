@@ -2,6 +2,7 @@ package org.shersfy.i18n.rest;
 
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.shersfy.i18n.I18nMessages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,16 @@ public class AppController extends BaseController{
     }
     
     @GetMapping("/i18n")
-    public Object getI18n(@RequestParam(required=true)String lang) {
-    	String[] names = lang.split("_");
-    	return i18n.getI18n().get(new Locale(names[0], names[1]).toString());
+    public Object getI18n(@RequestParam(required=true)String lang, String key) {
+    	Locale locale = Locale.CHINA;
+    	if("en".equalsIgnoreCase(lang)
+    			|| "en_US".equalsIgnoreCase(lang)) {
+    		locale = Locale.US;
+    	}
+    	
+    	if(StringUtils.isBlank(key)) {
+    		return i18n.getI18n(locale.getLanguage(), locale.getCountry());
+    	}
+    	return i18n.getI18n(locale.getLanguage(), locale.getCountry()).getProperty(key);
     }
 }
