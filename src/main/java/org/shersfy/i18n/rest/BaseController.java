@@ -11,21 +11,15 @@ import javax.validation.constraints.DecimalMin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
-import org.springframework.core.MethodParameter;
-import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.server.ServerHttpRequest;
-import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 import com.alibaba.fastjson.JSONObject;
 
 @ControllerAdvice(basePackages="org.shersfy.i18n.rest")
-public class BaseController implements ResponseBodyAdvice<Object>{
+public class BaseController {
 
 	protected static final Logger LOGGER = LoggerFactory.getLogger(BaseController.class);
 	
@@ -91,20 +85,6 @@ public class BaseController implements ResponseBodyAdvice<Object>{
 			}
 		}
 		return msg.toString();
-	}
-
-	@Override
-	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
-			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
-			ServerHttpResponse response) {
-		LOGGER.info("\n{}\n", body);
-		return body;
 	}
 
 }
