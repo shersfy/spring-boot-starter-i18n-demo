@@ -1,10 +1,7 @@
 package org.shersfy.i18n.rest;
 
-import java.util.Locale;
-
 import org.apache.commons.lang3.StringUtils;
 import org.shersfy.i18n.I18nMessages;
-import org.shersfy.i18n.I18nProperties;
 import org.shersfy.i18n.I18nModel;
 import org.shersfy.i18n.beans.Result;
 import org.shersfy.i18n.beans.Result.ResultCode;
@@ -52,16 +49,10 @@ public class AppController extends BaseController{
     
     @GetMapping("/i18n")
     public Object getI18n(@RequestParam(required=true)String lang, String key) {
-    	Locale locale = Locale.CHINA;
-    	if("en".equalsIgnoreCase(lang)
-    			|| "en_US".equalsIgnoreCase(lang)) {
-    		locale = Locale.US;
-    	}
-    	
     	if(StringUtils.isBlank(key)) {
-    		return i18n.getI18n(locale.getLanguage(), locale.getCountry());
+    		return i18n.getI18n(lang);
     	}
-    	return i18n.getI18n(locale.getLanguage(), locale.getCountry()).getProperty(key);
+    	return i18n.getI18n(lang).getProperty(key);
     }
     
     
@@ -69,7 +60,7 @@ public class AppController extends BaseController{
     public Result getMsg() {
     	Result res = new Result();
     	
-    	I18nModel msg = new I18nModel("MSG.T0027.E000002");
+    	I18nModel msg = new I18nModel("MSGT0027E000002");
     	String args[] = {"0 /1 * * * ?", "2018-10-20 00:00:00", "2050-12-31 23:59:59"};
     	msg.setArgs(args);
     	
@@ -79,13 +70,4 @@ public class AppController extends BaseController{
     	return res;
     }
     
-    protected I18nProperties getI18nMsg(String lang) {
-    	Locale locale = Locale.CHINA;
-    	if("en".equalsIgnoreCase(lang)
-    			|| "en_US".equalsIgnoreCase(lang)) {
-    		locale = Locale.US;
-    	}
-
-    	return i18n.getI18n(locale.getLanguage(), locale.getCountry());
-    }
 }
