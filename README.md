@@ -48,3 +48,5 @@ public Result getMsg() {
 }
 
 ```
+
+### 6. 请求header中添加参数lang=en_US或zh_CN, 取值和properties文件后缀名一致
