@@ -23,7 +23,7 @@ i18n:
 中文：messages_zh_CN.properties
 
 ```
-### 4. 指定Controller所在package
+### 4. 配置Controller所在package
 ```
 @ControllerAdvice("org.shersfy.i18n.rest")
 public class I18nConfig extends I18nResponseAdvice {
