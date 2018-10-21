@@ -8,6 +8,7 @@ import org.shersfy.i18n.I18nProperties;
 import org.shersfy.i18n.I18nModel;
 import org.shersfy.i18n.beans.Result;
 import org.shersfy.i18n.beans.Result.ResultCode;
+import org.shersfy.i18n.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,23 @@ public class AppController extends BaseController{
     @GetMapping("/index")
     public Object index() {
         return String.format("Welcom %s Application", appname);
+    }
+    
+    @GetMapping("/login")
+    public Result login(String username, String password) {
+    	
+    	User user = new User();
+    	user.setUsername(username);
+    	user.setPassword(password);
+    	getRequest().getSession().setAttribute("user", user);
+    	
+    	return new Result(user);
+    }
+    
+    @GetMapping("/user")
+    public Result getLoginuser() {
+    	Object user = getRequest().getSession().getAttribute("user");
+    	return user==null?new Result("not login"):new Result(user);
     }
     
     @GetMapping("/i18n")

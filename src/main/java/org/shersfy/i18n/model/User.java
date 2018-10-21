@@ -14,7 +14,9 @@ public class User implements Serializable{
 	
 	private Long id;
 	
-	private String name;
+	private String username;
+	
+	private String password;
 	
 	private Date birthday;
 
@@ -26,13 +28,6 @@ public class User implements Serializable{
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public Date getBirthday() {
 		return birthday;
@@ -45,6 +40,22 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 }
