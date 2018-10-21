@@ -9,6 +9,7 @@ spring:
 i18n:
   config:
     enabled: true
+    header-key: lang
 # management
 management:
   endpoints:

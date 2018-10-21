@@ -31,7 +31,10 @@ public class I18nConfig extends I18nResponseAdvice {
 }
 ```
 ### 5. 封装Result对象
+例：
 ```
+MSGT0027E000002=Save Job Error: The job is out of date cron=%s, effective time %s ~ %s
+
 @GetMapping("/msg")
 public Result getMsg() {
 	Result res = new Result();
