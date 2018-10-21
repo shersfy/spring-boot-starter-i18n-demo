@@ -36,13 +36,11 @@ public class I18nConfig extends I18nResponseAdvice {
 public Result getMsg() {
 	Result res = new Result();
 	
-	I18nModel msg = new I18nModel("MSGT0027E000002");
+	I18nModel i18n = new I18nModel("MSGT0027E000002");
 	String args[] = {"0 /1 * * * ?", "2018-10-20 00:00:00", "2050-12-31 23:59:59"};
-	msg.setArgs(args);
+	i18n.setArgs(args);
 	
-	res.setCode(ResultCode.FAIL);
-	res.setModel(msg);
-	
+	res.setModel(i18n);
 	return res;
 }
 

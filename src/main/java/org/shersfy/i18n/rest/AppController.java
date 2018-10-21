@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.shersfy.i18n.I18nMessages;
 import org.shersfy.i18n.I18nModel;
 import org.shersfy.i18n.beans.Result;
-import org.shersfy.i18n.beans.Result.ResultCode;
 import org.shersfy.i18n.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,13 +59,11 @@ public class AppController extends BaseController{
     public Result getMsg() {
     	Result res = new Result();
     	
-    	I18nModel msg = new I18nModel("MSGT0027E000002");
+    	I18nModel i18n = new I18nModel("MSGT0027E000002");
     	String args[] = {"0 /1 * * * ?", "2018-10-20 00:00:00", "2050-12-31 23:59:59"};
-    	msg.setArgs(args);
+    	i18n.setArgs(args);
     	
-    	res.setCode(ResultCode.FAIL);
-    	res.setModel(msg);
-    	
+    	res.setModel(i18n);
     	return res;
     }
     
