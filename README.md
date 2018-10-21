@@ -33,9 +33,7 @@ public class I18nConfig extends I18nResponseAdvice {
 ### 5. 封装Result对象
 例：
 ```
-messages_en_US.properties
 MSGT0027E000002=Save Job Error: The job is out of date cron=%s, effective time %s ~ %s
-messages_zh_CN.properties
 MSGT0027E000002=任务保存错误: 任务已过时cron=%s, 有效时间 %s ~ %s
 
 @GetMapping("/msg")
