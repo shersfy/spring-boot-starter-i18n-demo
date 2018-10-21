@@ -50,3 +50,22 @@ public Result getMsg() {
 ```
 
 ### 6. 请求header中添加参数lang=en_US或zh_CN, 取值和properties文件后缀名一致
+例：
+```
+http://localhost:8081/msg
+{
+  "code": 0,
+  "msg": "任务保存错误: 任务已过时cron=0 /1 * * * ?, 有效时间 2018-10-20 00:00:00 ~ 2050-12-31 23:59:59",
+  "model": {
+    "title": null,
+    "detail": null,
+    "key": "MSGT0027E000002",
+    "args": [
+      "0 /1 * * * ?",
+      "2018-10-20 00:00:00",
+      "2050-12-31 23:59:59"
+    ]
+  }
+}
+
+```
