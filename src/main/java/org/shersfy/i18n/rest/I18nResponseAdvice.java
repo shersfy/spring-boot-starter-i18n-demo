@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
 @ControllerAdvice("org.shersfy.i18n.rest")
-public class I18nResponseAdvice implements ResponseBodyAdvice<Result>{
+public class I18nResponseAdvice implements ResponseBodyAdvice<Object>{
 
 	@Autowired
 	private I18nMessages i18n;
@@ -26,10 +26,14 @@ public class I18nResponseAdvice implements ResponseBodyAdvice<Result>{
 	}
 
 	@Override
-	public Result beforeBodyWrite(Result res, MethodParameter returnType, MediaType selectedContentType,
+	public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
 			Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request,
 					ServerHttpResponse response) {
+		if(!(body instanceof Result)) {
+			return body;
+		}
 		
+		Result res = (Result) body;
 		if(res.getCode()!=ResultCode.SUCESS) {
 			I18nModel model = (I18nModel) res.getModel();
 			String lang = request.getHeaders().getFirst("lang");
