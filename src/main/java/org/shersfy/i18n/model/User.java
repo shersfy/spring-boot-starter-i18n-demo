@@ -18,6 +18,8 @@ public class User implements Serializable{
 	
 	private String password;
 	
+	private long timestamp;
+	
 	private Date birthday;
 
 	public Long getId() {
@@ -56,6 +58,14 @@ public class User implements Serializable{
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
 	}
 	
 }
