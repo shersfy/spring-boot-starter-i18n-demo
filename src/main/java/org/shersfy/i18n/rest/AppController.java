@@ -43,11 +43,12 @@ public class AppController extends BaseController{
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword(password);
-		user.setId(1L);
 		user.setTimestamp(System.currentTimeMillis());
 
+		Long loginId = System.nanoTime();
+		user.setId(loginId);
 		String token = AesUtil.encryptHexStr(user.toString(), AesUtil.AES_SEED);
-		String refresh = "_r_"+user.getId();
+		String refresh = "_r_"+loginId;
 		
 		userInfoService.cacheToken(token, refresh, user);
 
@@ -58,11 +59,6 @@ public class AppController extends BaseController{
 		cookie.setPath("/");
 		cookie.setMaxAge(1800);
 		CookieUtil.addCookie(getResponse(), cookie);
-		Cookie r = new Cookie("_r_", refresh);
-		r.setDomain(getRequest().getServerName());
-		r.setPath("/");
-		r.setMaxAge(1800);
-		CookieUtil.addCookie(getResponse(), r);
 
 		return new Result(user);
 	}

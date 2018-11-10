@@ -32,17 +32,25 @@ public class UserInfoService {
 			return token;
 		}
 
-		// 刷新token, 清除and添加到cookie
+		// 刷新token
 		try {
 			User user = JSON.parseObject(AesUtil.decryptHexStr(token, AesUtil.AES_SEED), User.class);
 			String refresh = "_r_"+user.getId();
 			if (!stringRedisTemplate.hasKey(refresh)) {
 				return null;
 			}
+			// token不一致
+			if (!token.equals(stringRedisTemplate.opsForValue().get(refresh))) {
+				logger.info("被盗token不一致");
+				stringRedisTemplate.delete(refresh);
+				return null;
+			}
 			
 			user.setTimestamp(System.currentTimeMillis());
 			token = AesUtil.encryptHexStr(user.toString(), AesUtil.AES_SEED);
-			stringRedisTemplate.opsForValue().set(token, token, 10, TimeUnit.SECONDS);
+			stringRedisTemplate.opsForValue().set(token, user.toString(), 10, TimeUnit.SECONDS);
+			Long expire = stringRedisTemplate.getExpire(refresh);
+			stringRedisTemplate.opsForValue().set(refresh, token, expire, TimeUnit.SECONDS);
 			logger.info("刷新token={}", token);
 			
 		} catch (Exception e) {
@@ -55,7 +63,7 @@ public class UserInfoService {
 
 	public void cacheToken(String token, String refresh, User user) {
 		stringRedisTemplate.opsForValue().set(token, user.toString(), 10, TimeUnit.SECONDS);
-		stringRedisTemplate.opsForValue().set(refresh, user.toString(), 120, TimeUnit.SECONDS);
+		stringRedisTemplate.opsForValue().set(refresh, token, 120, TimeUnit.SECONDS);
 	}
 
 }

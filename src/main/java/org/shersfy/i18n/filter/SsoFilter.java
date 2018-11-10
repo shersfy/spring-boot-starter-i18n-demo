@@ -64,14 +64,12 @@ public class SsoFilter implements Filter {
 	public boolean isLogined(HttpServletRequest req, HttpServletResponse res) {
 		
 		String oldToken = CookieUtil.getCookieValue(req, "_t_");
-		String refresh  = CookieUtil.getCookieValue(req, "_r_");
 
 		String token = userInfoService.refreshToken(oldToken);
 		if (StringUtils.isBlank(token)) {
 			return false;
 		}
 		req.setAttribute("token", token);
-		req.setAttribute("refresh", refresh);
 		if (token.equals(oldToken)) {
 			return true;
 		}
